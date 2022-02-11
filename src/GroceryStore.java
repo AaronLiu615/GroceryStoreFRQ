@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class GroceryStore
@@ -18,6 +19,13 @@ public class GroceryStore
     public ArrayList<Integer> getReorderList(int min)
     {
         /* to be implemented in part (a) */
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i = 0 ; i < productsStocked.length; i++ ){
+            if (productsStocked[i].getQuantity() <= min) {
+                list.add(i);
+            }
+        }
+        return list;
     }
 
     /** Returns true if all products named in shoppingList are available for purchase
@@ -28,5 +36,28 @@ public class GroceryStore
     public boolean checkAvailability(ArrayList<String> shoppingList)
     {
         /* to be implemented in part (b) */
+        for (String list : shoppingList){
+            for (Product inventory : productsStocked){
+                if (inventory.getQuantity() == 0 && inventory.getName().equals(list)){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
+
+    /** Returns an ArrayList containing all Products from productStocked that
+     *  have a weight that exceeds the “weight” value provided in the parameter
+     */
+    public ArrayList<Product> oversized(double weight)
+    {
+        ArrayList<Product> lists = new ArrayList<>();
+        for (Product product : productsStocked){
+            if (product.getWeight() > weight) {
+                lists.add(product);
+            }
+        }
+        return lists;
+    }
+
 }
